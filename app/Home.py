@@ -2,7 +2,7 @@ import streamlit as st
 from quote_logic import calculate_quote
 from deepseek_ai import ask_deepseek, build_quote_prompt
 
-st.set_page_config(page_title="Concrete Quote Generator", layout="centered")
+st.set_page_config(page_title="Concrete Quote Generator", layout="wide")
 st.title("Concrete Quote Generator")
 
 st.markdown("Enter the job details below:")
