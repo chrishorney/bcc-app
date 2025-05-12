@@ -20,14 +20,15 @@ if quotes:
     ])
 
     st.subheader("Delete a Quote")
-    quote_id = st.number_input("Enter Quote ID to delete", min_value=1, step=1)
+quote_id = int(st.number_input("Enter Quote ID to delete", min_value=1, step=1))
 
-    if st.button("Delete Quote"):
-        confirm = st.checkbox("Confirm delete")
-        if confirm:
-            delete_quote(quote_id)
-            st.success(f"Quote ID {quote_id} deleted. Please refresh the page.")
-        else:
-            st.warning("Please confirm before deleting.")
+if st.button("Delete Quote"):
+    confirm = st.checkbox("Confirm delete")
+    if confirm:
+        delete_quote(quote_id)
+        st.success(f"Quote ID {quote_id} deleted. Please refresh the page.")
+    else:
+        st.warning("Please confirm before deleting.")
+
 else:
     st.info("No quotes found.")
