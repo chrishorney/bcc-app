@@ -1,10 +1,15 @@
+
 import streamlit as st
+import datetime
 from app.quote_logic import calculate_quote
 from app.deepseek_ai import ask_deepseek, build_quote_prompt
+from app.quote_storage import create_quotes_table, save_quote
 
 st.set_page_config(page_title="Concrete Quote Generator", layout="wide")
-st.title("Concrete Quote Generator")
+st.session_state["quote_date"] = datetime.date.today()
+create_quotes_table()
 
+st.title("Concrete Quote Generator")
 st.markdown("Enter the job details below:")
 
 with st.form("quote_form"):
@@ -64,7 +69,20 @@ if submitted:
         }
 
         breakdown = calculate_quote(job_details)
+        total = sum(breakdown.values())
 
         st.subheader("Manual Quote Breakdown")
         for category, cost in breakdown.items():
             st.write(f"**{category}:** ${cost:,.2f}")
+        st.write(f"**Total Quote:** ${total:,.2f}")
+
+        save_quote(
+            builder=builder_name,
+            job_name=f"Slab {int(slab_sqft)} sqft with {num_piers} piers",
+            date=str(st.session_state.get("quote_date")),
+            job_details=str(job_details),
+            quote_breakdown=str(breakdown),
+            total_price=total
+        )
+
+        st.success("Quote saved to database!")
