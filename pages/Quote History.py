@@ -1,4 +1,3 @@
-
 import streamlit as st
 from app.quote_storage import get_all_quotes, delete_quote
 
@@ -20,15 +19,14 @@ if quotes:
     ])
 
     st.subheader("Delete a Quote")
-quote_id = int(st.number_input("Enter Quote ID to delete", min_value=1, step=1))
-
-if st.button("Delete Quote"):
+    quote_id = int(st.number_input("Enter Quote ID to delete", min_value=1, step=1))
     confirm = st.checkbox("Confirm delete")
+
     if confirm:
-        delete_quote(quote_id)
-        st.success(f"Quote ID {quote_id} deleted. Please refresh the page.")
+        if st.button("Delete Quote"):
+            delete_quote(quote_id)
+            st.success(f"Quote ID {quote_id} deleted. Please refresh the page.")
     else:
         st.warning("Please confirm before deleting.")
-
 else:
     st.info("No quotes found.")

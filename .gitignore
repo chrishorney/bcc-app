@@ -14,9 +14,9 @@ venv/
 
 # Ignore database files
 *.sqlite3
-*.db
+# *.db
 *.db-journal
-database/jobs.db
+# database/jobs.db
 
 # Ignore logs and temp
 *.log
